@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京十一学校中堂实验学校校园植物图鉴(初一新生制作，垃圾勿喷)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --accent-color: #8bc34a;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M50,10 C60,10 70,15 75,25 C85,25 90,35 85,45 C95,55 95,65 85,75 C90,85 85,95 75,95 C70,95 60,90 50,90 C40,90 30,95 25,95 C15,95 10,85 15,75 C5,65 5,55 15,45 C10,35 15,25 25,25 C30,15 40,10 50,10 Z"/></svg>');
+            background-size: 150px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-section {
+            background-color: var(--card-bg);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        
+        .search-container {
+            position: relative;
+            flex: 1;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .search-box input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+        
+        .search-box button {
+            padding: 14px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        
+        .search-box button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+        }
+        
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+        }
+        
+        .suggestion-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .plants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .plant-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .plant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        
+        .plant-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+        
+        .plant-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .plant-card:hover .plant-img {
+            transform: scale(1.05);
+        }
+        
+        .plant-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+        
+        .favorite-btn.active {
+            color: #ff4081;
+        }
+        
+        .favorite-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+        
+        .plant-info {
+            padding: 20px;
+        }
+        
+        .plant-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .plant-latin {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .plant-desc {
+            color: #666;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 30px auto;
+            max-width: 900px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: modalAppear 0.4s ease-out;
+        }
+        
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-plant-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .modal-favorite-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .modal-favorite-btn.active {
+            color: #ff4081;
+        }
+        
+        .modal-favorite-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .close-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .modal-body {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .modal-img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .plant-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .plant-details p {
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+        
+        .detail-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            min-width: 100px;
+            color: var(--primary-dark);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background-color: var(--primary-dark);
+            color: white;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(76, 175, 80, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .plants-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stat-item {
+                min-width: auto;
+            }
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-leaf"></i> 中堂植物图鉴</h1>
+                <p class="subtitle">探索校园内的植物多样性，认识身边的绿色朋友</p>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="search-section">
+            <div class="search-box">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="输入植物名称、拉丁名或特征进行搜索...">
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                </div>
+                <button id="search-btn">
+                    <i class="fas fa-search"></i> 搜索
+                </button>
+            </div>
+            <div class="filter-options">
+                <div class="filter-btn active" data-category="all">
+                    <i class="fas fa-seedling"></i> 全部植物
+                </div>
+                <div class="filter-btn" data-category="tree">
+                    <i class="fas fa-tree"></i> 乔木
+                </div>
+                <div class="filter-btn" data-category="shrub">
+                    <i class="fas fa-tree"></i> 灌木
+                </div>
+                <div class="filter-btn" data-category="flower">
+                    <i class="fas fa-flower"></i> 花卉
+                </div>
+                <div class="filter-btn" data-category="herb">
+                    <i class="fas fa-leaf"></i> 草本
+                </div>
+            </div>
+        </section>
+        
+        <section class="plants-grid" id="plants-container">
+            <!-- 植物卡片将通过JavaScript动态生成 -->
+        </section>
+    </div>
+    
+    <!-- 植物详情模态框 -->
+    <div class="modal" id="plant-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-plant-header">
+                    <h2 id="modal-title"><i class="fas fa-leaf"></i> 植物名称</h2>
+                    <button class="modal-favorite-btn" id="modal-favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modal-img" src="" alt="" class="modal-img">
+                <div class="plant-details">
+                    <h3><i class="fas fa-info-circle"></i> 基本信息</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">拉丁名:</span>
+                        <span id="modal-latin"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">科属:</span>
+                        <span id="modal-family"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">类别:</span>
+                        <span id="modal-category"></span>
+                    </div>
+                    
+                    <h3><i class="fas fa-list"></i> 特征描述</h3>
+                    <p id="modal-description"></p>
+                    
+                    <h3><i class="fas fa-map-marker-alt"></i> 分布区域</h3>
+                    <p id="modal-location"></p>
+                    
+                    <h3><i class="fas fa-calendar-alt"></i> 花期/果期</h3>
+                    <p id="modal-bloom"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="plant-count">0</div>
+                    <div class="stat-label">收录植物</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="favorite-count">0</div>
+                    <div class="stat-label">我的收藏</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">植物类别</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2025</div>
+                    <div class="stat-label">创建年份</div>
+                </div>
+            </div>
+            <p>中堂植物图鉴 &copy; 2025 | 探索自然之美，共建绿色中堂</p>
+        </div>
+    </footer>
+
+    <script>
+        // 植物数据
+        const plantsData = [
+            {
+                id: 1,
+                name: "银杏",
+                latin: "Ginkgo biloba",
+                family: "银杏科 银杏属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a6118cfb6c.jpg",
+                description: "银杏为落叶大乔木，是现存种子植物中最古老的孑遗植物，有'活化石'之称。叶扇形，有长柄，淡绿色，秋季变为黄色。树皮灰褐色，有不规则纵裂。银杏生长较慢，寿命极长，自然条件下从栽种到结果要二十多年，四十年后才能大量结果。",
+                location: "操场旁边",
+                bloom: "花期4月，果期9-10月"
+            },
+            {
+                id: 2,
+                name: "悬铃木",
+                latin: "Platanus orientalis.",
+                family: "悬铃木科 悬铃木属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a606db583a.jpg",
+                description: "悬铃木是落叶大乔木，树皮灰绿色或灰白色，薄片状剥落，剥落后呈粉绿色，光滑。叶片三角状，长宽各约10-22厘米，3-5掌状分裂，边缘有不规则尖齿和波状齿。果实为球形头状果序，通常2-6个一串，形似悬挂的铃铛，故名'悬铃木'。树冠广阔，生长迅速，是优良的行道树种。",
+                location: "操场旁边",
+                bloom: "花期4-5月，果期9-10月"
+            },
+            {
+                id: 3,
+                name: "月季",
+                latin: "Rosa chinensis",
+                family: "蔷薇科 蔷薇属",
+                category: "shrub",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a6050504be.jpg",
+                description: "月季花被称为花中皇后，四季开花，花色丰富，有红色、粉色、白色和黄色等。花型多样，有单瓣和重瓣。月季适应性强，耐寒耐旱，对土壤要求不严，喜日照充足，空气流通，排水良好而避风的环境。",
+                location: "大部分绿化带都有",
+                bloom: "花期4-10月"
+            },
+            {
+                id: 4,
+                name: "大滨菊",
+                latin: "Leucanthemum maximum",
+                family: "菊科 滨菊属",
+                category: "flower",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a6099dabfc.jpg",
+                description: "大滨菊是多年生草本植物，株高约30-70厘米。叶片互生，长椭圆形至倒披针形，边缘有锯齿。头状花序单生于茎顶，舌状花白色，排列在花序外围，管状花黄色，集中在花序中央。花朵直径约5-10厘米，清新淡雅，观赏期长。大滨菊适应性强，易于栽培，是优良的切花和花坛植物。",
+                location: "学校与岳各庄市场的交界墙内，石砖小花道里",
+                bloom: "花期5-9月，盛花期6-7月"
+            },
+            {
+                id: 5,
+                name: "玉簪",
+                latin: "Hosta plantaginea",
+                family: "天门冬科 玉簪属",
+                category: "flower",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a617a23d54.jpg",
+                description: "玉簪是多年生草本植物，因其花蕾形似古代女子发簪而得名。株高30-70厘米，具粗短的根状茎。叶片基生成丛，心状卵圆形，具长柄，叶片深绿色有光泽。花葶从叶丛中抽出，高出叶面，总状花序，花白色，管状漏斗形，有芳香，夜间开花。玉簪是优良的耐阴观叶观花植物，叶色叶形变化丰富。",
+                location: "C楼旁边的小道处",
+                bloom: "花期7-9月，夜间开放，芳香"
+            },
+            {
+                id: 6,
+                name: "蒲公英",
+                latin: "Taraxacum mongolicum",
+                family: "菊科 蒲公英属",
+                category: "herb",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a61b0bf37b.jpg",
+                description: "蒲公英是多年生草本植物，叶倒卵状披针形，头状花序，种子上有白色冠毛结成的绒球，花开后随风飘到新的地方孕育新生命。蒲公英植物体中含有蒲公英醇、蒲公英素、胆碱、有机酸、菊糖等多种健康营养成分。",
+                location: "校园草坪、路边、操场周边",
+                bloom: "花期4-9月"
+            },
+            {
+                id: 7,
+                name: "油桐",
+                latin: "Vernicia fordii",
+                family: "大戟科 油桐属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a61d87e242.jpg",
+                description: "油桐是落叶乔木，树高可达10米。树皮灰色，近光滑。叶片互生，卵圆形，全缘或有3-5浅裂，叶基有2个扁平腺体。花单性，雌雄同株，圆锥花序顶生，花白色，基部有淡红色斑纹。果实为核果，近球形，表面光滑。油桐种子含油量高，是重要的工业油料树种。",
+                location: "操场后端(C楼旁）",
+                bloom: "花期4-5月，果期10月"
+            },
+            {
+                id: 8,
+                name: "黑心金光菊",
+                latin: "Rudbeckia hirta",
+                family: "菊科 金光菊属",
+                category: "flower",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a623969ebd.jpg",
+                description: "黑心金光菊是一年生或多年生草本植物，株高30-100厘米。全株被粗硬毛，茎直立，上部有分枝。叶片互生，卵形至卵状披针形，边缘有锯齿。头状花序单生于枝顶，舌状花金黄色，管状花深褐色至黑褐色，呈圆锥状突起，形成鲜明的'黑心'特征。花朵直径5-10厘米，色彩鲜艳夺目，花期长，是优良的观赏植物。",
+                location: "C楼旁边的小道处",
+                bloom: "花期6-10月，盛花期7-8月"
+            },
+            {   
+                id: 9,
+                name: "天人菊",
+                latin: "Gaillardia pulchella",
+                family: "菊科 天人菊属",
+                category: "flower",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a626707add.jpg",
+                description: "天人菊株高20-60厘米；多分枝，全株被柔毛；叶互生，矩圆形，披针形至匙形，全缘或基部叶羽裂；头状花序顶生带有长柄；舌状花黄色，基部褐紫色，先端2-3齿裂",
+                location: "C楼旁边的小道处",
+                bloom: "花期6-10月，盛花期7-8月"
+            },
+            {
+                id: 10,
+                name: "绣球荚蒾",
+                latin: "Viburnum macrocephalum",
+                family: "五福花科 荚蒾属",
+                category: "shrub",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a62aa0c6ff.jpg",
+                description: "绣球荚蒾是落叶或半常绿灌木，高可达4米。树皮灰褐色，小枝黄褐色，幼时被星状毛。叶片对生，卵形至椭圆形，长5-11厘米，边缘有细锯齿，叶面深绿色，叶背密被星状毛。聚伞花序组成大型球状花序，直径可达15-20厘米，全部由大型不孕花组成，花冠白色，辐射状。花序形似绣球，洁白如雪，观赏价值极高，是优良的园林观赏植物。",
+                location: "C楼旁边的小道处",
+                bloom: "花期4-5月"
+            },
+            {
+                id: 11,
+                name: "杏树",
+                latin: "Prunus armeniaca",
+                family: "蔷薇科 李属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a632579276.jpg",
+                description: "杏树是落叶乔木，树高可达5-8米。树冠圆形或扁圆形，树皮灰褐色，纵裂。小枝红褐色或褐色。叶片卵圆形或卵状椭圆形，长5-9厘米，先端急尖，基部圆形或近心形，边缘有细钝锯齿。花单生，先叶开放，花瓣白色或淡粉红色。果实球形，直径约2.5-4厘米，黄色至橙红色，表面被短柔毛。杏树是重要的经济果树，果实可鲜食或加工，杏仁可入药。",
+                location: "学校西侧地库出口处",
+                bloom: "花期3-4月，果期6-7月"
+            },
+            {
+                id: 12,
+                name: "海棠树",
+                latin: "Malus spectabilis",
+                family: "蔷薇科 苹果属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a635b6c667.jpg",
+                description: "海棠树是落叶小乔木，高可达8米。树冠开展，树皮灰褐色，光滑。小枝粗壮，圆柱形，幼时被短柔毛。叶片椭圆形至长椭圆形，长5-8厘米，先端渐尖，基部宽楔形，边缘有细锐锯齿。伞形花序，有花4-6朵，花瓣卵形，粉红色或白色，重瓣或半重瓣。果实近球形，直径约2厘米，黄色，基部不下陷。",
+                location: "学校西门入口处，D楼西出口",
+                bloom: "花期4-5月，果期8-9月"
+            },
+            {
+                id: 13,
+                name: "苹果树",
+                latin: "Malus domestica",
+                family: "蔷薇科 苹果属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a63953aae7.jpg",
+                description: "苹果树是落叶乔木，树高可达15米。树冠圆形，树皮灰褐色，有不规则纵裂或片状剥落。小枝粗壮，圆柱形，幼时密被绒毛。叶片椭圆形或卵形，长4.5-10厘米，先端急尖，基部宽楔形，边缘有圆钝锯齿，幼时两面有毛。伞房花序，有花3-7朵，花瓣倒卵形，白色含苞时带粉红色。果实为仁果。",
+                location: "学校西门入口处，D楼西出口附近",
+                bloom: "花期4-5月，果期7-10月（因品种而异）"
+            },
+            {
+                id: 14,
+                name: "石榴树",
+                latin: "Punica granatum",
+                family: "千屈菜科 石榴属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a63d65a879.jpg",
+                description: "石榴树是落叶灌木或小乔木，树高2-7米。树冠自然圆头形，树皮灰褐色，有片状剥落。小枝柔韧，不易折断，顶端常成尖锐长刺。叶片对生或簇生，长披针形或长圆形，长2-9厘米，全缘，表面光滑。花两性，有单瓣、重瓣之分，花瓣红色、白色或黄色，萼筒钟状或筒状，红色或淡黄色。果实为浆果，球形，直径5-12厘米，果皮厚，顶端有宿存花萼。种子多数，外种皮肉质，呈鲜红、淡红或白色。",
+                location: "学校西门入口处，D楼西出口小花园里",
+                bloom: "花期5-7月，果期9-10月"
+            },
+            {
+                id: 15,
+                name: "李树",
+                latin: "Prunus salicina",
+                family: "蔷薇科 李属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a71933572b.jpg",
+                description: "李树是落叶乔木，树高可达9-12米。树冠广圆形，树皮灰褐色，起伏不平，有纵裂。小枝黄红色，无毛。叶片长圆倒卵形或长圆卵圆形，长6-12厘米，先端渐尖或急尖，基部楔形，边缘有圆锥齿。花通常3朵簇生，先叶开放，花瓣白色，长圆倒卵形。果实球形、卵球形或心脏形，直径2-4厘米，黄色、红色或紫色，外被蜡粉。李树是中国传统果树，栽培历史悠久，果实酸甜可口，营养丰富。",
+                location: "学校西门入口处，D楼西出口小花园里",
+                bloom: "花期3-4月，果期7-8月"
+            },
+            {
+                id: 16,
+                name: "柿树",
+                latin: "Diospyros kaki",
+                family: "柿科 柿属",
+                category: "tree",
+                image: "https://youke1.picui.cn/s1/2025/11/17/691a64597bbdc.jpg",
+                description: "柿树是落叶乔木，树高可达10-15米。树冠自然半圆形或广卵形，树皮暗灰色，裂成长方块状。小枝密被黄褐色绒毛。叶片椭圆形、阔椭圆形或倒卵形，长6-18厘米，先端尖，基部宽楔形或近圆形，全缘，表面深绿色有光泽，背面淡绿色。花雌雄异株或杂性同株，雄花成短聚伞花序，雌花单生叶腋，花冠黄白色。果实为浆果，形状多样，有球形、扁球形、方形等，直径3-8厘米，成熟时橙黄色或红色。",
+                location: "学校西门入口处，D楼西出口小花园里",
+                bloom: "花期5-6月，果期9-11月"
+            
+            }
+        ];
+       
+        // DOM元素
+        const plantsContainer = document.getElementById('plants-container');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const searchSuggestions = document.getElementById('search-suggestions');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const modal = document.getElementById('plant-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalFavoriteBtn = document.getElementById('modal-favorite-btn');
+        const plantCount = document.getElementById('plant-count');
+        const favoriteCount = document.getElementById('favorite-count');
+        
+        // 收藏数据
+        let favorites = JSON.parse(localStorage.getItem('plantFavorites')) || [];
+        let currentPlant = null;
+        
+        // 初始化显示所有植物
+        displayPlants(plantsData);
+        updateStats();
+        
+        // 显示植物卡片
+        function displayPlants(plants) {
+            plantsContainer.innerHTML = '';
+            
+            if (plants.length === 0) {
+                plantsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>未找到匹配的植物</h3>
+                        <p>请尝试其他搜索词或筛选条件</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 显示加载状态
+            plantsContainer.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            `;
+            
+            // 模拟加载延迟
+            setTimeout(() => {
+                plantsContainer.innerHTML = '';
+                
+                plants.forEach(plant => {
+                    const isFavorite = favorites.includes(plant.id);
+                    const plantCard = document.createElement('div');
+                    plantCard.className = 'plant-card';
+                    plantCard.setAttribute('data-category', plant.category);
+                    plantCard.innerHTML = `
+                        <div class="plant-img-container">
+                            <img src="${plant.image}" alt="${plant.name}" class="plant-img">
+                            <div class="plant-category">${getCategoryName(plant.category)}</div>
+                            <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${plant.id}">
+                                <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="plant-info">
+                            <div class="plant-name">
+                                <i class="fas fa-leaf"></i> ${plant.name}
+                            </div>
+                            <div class="plant-latin">${plant.latin}</div>
+                            <p class="plant-desc">${plant.description}</p>
+                        </div>
+                    `;
+                    
+                    plantCard.addEventListener('click', (e) => {
+                        if (!e.target.closest('.favorite-btn')) {
+                            openPlantModal(plant);
+                        }
+                    });
+                    
+                    // 收藏按钮事件
+                    const favBtn = plantCard.querySelector('.favorite-btn');
+                    favBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleFavorite(plant.id, favBtn);
+                    });
+                    
+                    plantsContainer.appendChild(plantCard);
+                });
+            }, 500);
+        }
+        
+        // 打开植物详情模态框
+        function openPlantModal(plant) {
+            currentPlant = plant;
+            const isFavorite = favorites.includes(plant.id);
+            
+            document.getElementById('modal-title').textContent = plant.name;
+            document.getElementById('modal-img').src = plant.image;
+            document.getElementById('modal-img').alt = plant.name;
+            document.getElementById('modal-latin').textContent = plant.latin;
+            document.getElementById('modal-family').textContent = plant.family;
+            document.getElementById('modal-category').textContent = getCategoryName(plant.category);
+            document.getElementById('modal-description').textContent = plant.description;
+            document.getElementById('modal-location').textContent = plant.location;
+            document.getElementById('modal-bloom').textContent = plant.bloom;
+            
+            // 更新收藏按钮状态
+            modalFavoriteBtn.className = `modal-favorite-btn ${isFavorite ? 'active' : ''}`;
+            modalFavoriteBtn.innerHTML = `<i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>`;
+            
+            modal.style.display = 'block';
+        }
+        
+        // 切换收藏状态
+        function toggleFavorite(plantId, button = null) {
+            const index = favorites.indexOf(plantId);
+            
+            if (index > -1) {
+                // 取消收藏
+                favorites.splice(index, 1);
+                if (button) {
+                    button.classList.remove('active');
+                    button.innerHTML = '<i class="far fa-heart"></i>';
+                }
+            } else {
+                // 添加收藏
+                favorites.push(plantId);
+                if (button) {
+                    button.classList.add('active');
+                    button.innerHTML = '<i class="fas fa-heart"></i>';
+                }
+            }
+            
+            // 保存到本地存储
+            localStorage.setItem('plantFavorites', JSON.stringify(favorites));
+            updateStats();
+            
+            // 更新模态框中的收藏按钮
+            if (currentPlant && currentPlant.id === plantId) {
+                const isFavorite = favorites.includes(plantId);
+                modalFavoriteBtn.className = `modal-favorite-btn ${isFavorite ? 'active' : ''}`;
+                modalFavoriteBtn.innerHTML = `<i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>`;
+            }
+        }
+        
+        // 更新统计数据
+        function updateStats() {
+            plantCount.textContent = plantsData.length;
+            favoriteCount.textContent = favorites.length;
+        }
+        
+        // 获取类别中文名称
+        function getCategoryName(category) {
+            const categories = {
+                'tree': '乔木',
+                'shrub': '灌木',
+                'flower': '花卉',
+                'herb': '草本'
+            };
+            return categories[category] || '其他';
+        }
+        
+        // 搜索功能
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') performSearch();
+            
+            // 输入时显示搜索建议
+            if (searchInput.value.length > 0) {
+                showSearchSuggestions(searchInput.value);
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+        
+        // 显示搜索建议
+        function showSearchSuggestions(query) {
+            const suggestions = plantsData.filter(plant => 
+                plant.name.toLowerCase().includes(query.toLowerCase()) || 
+                plant.latin.toLowerCase().includes(query.toLowerCase())
+            ).slice(0, 5);
+            
+            if (suggestions.length > 0) {
+                searchSuggestions.innerHTML = suggestions.map(plant => 
+                    `<div class="suggestion-item" data-id="${plant.id}">${plant.name} (${plant.latin})</div>`
+                ).join('');
+                searchSuggestions.style.display = 'block';
+                
+                // 添加点击事件
+                searchSuggestions.querySelectorAll('.suggestion-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const plantId = parseInt(item.getAttribute('data-id'));
+                        const plant = plantsData.find(p => p.id === plantId);
+                        searchInput.value = plant.name;
+                        searchSuggestions.style.display = 'none';
+                        performSearch();
+                    });
+                });
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        }
+        
+        // 点击其他地方隐藏搜索建议
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+            
+            let filteredPlants = plantsData;
+            
+            // 按类别筛选
+            if (activeCategory !== 'all') {
+                filteredPlants = filteredPlants.filter(plant => plant.category === activeCategory);
+            }
+            
+            // 按搜索词筛选
+            if (searchTerm) {
+                filteredPlants = filteredPlants.filter(plant => 
+                    plant.name.toLowerCase().includes(searchTerm) || 
+                    plant.latin.toLowerCase().includes(searchTerm) ||
+                    plant.description.toLowerCase().includes(searchTerm) ||
+                    plant.family.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            displayPlants(filteredPlants);
+        }
+        
+        // 类别筛选
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                performSearch();
+            });
+        });
+        
+        // 模态框收藏按钮事件
+        modalFavoriteBtn.addEventListener('click', () => {
+            if (currentPlant) {
+                toggleFavorite(currentPlant.id);
+            }
+        });
+        
+        // 关闭模态框
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
